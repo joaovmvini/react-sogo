@@ -1,19 +1,24 @@
 import './App.css';
 import { createGlobalStyle } from 'styled-components';
 
-import Menu from './components/Menu';
+import Menu from './components/layout/Menu';
 import Dashboard from './pages/Dashboard';
 import RegisterContract from './pages/RegisterContract';
 import RegisterUser from './pages/RegisterUser';
 import ContractView from './pages/ContractView';
 
 import { MenuData } from './components/data/MenuData';
+import validations from './models/Validations';
 
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from 'react-router-dom';
+
+import UserDataProvider from './contexts/Users';
+import ContractsProvider from './contexts/Contracts';
+import Validations from './contexts/Validations';
 
 const GlobalStyle = createGlobalStyle`
     #root {
@@ -33,6 +38,21 @@ const GlobalStyle = createGlobalStyle`
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font: inherit;
+    }
+
+    input[error] {
+      border: 1px solid red !important;
+    }
+
+    @media (max-width: 1023px) {
+      .row {
+        flex-direction: column;
+      }
+
+      .col input {
+        width: 100%;
+      }
     }
 `;
 
@@ -43,12 +63,19 @@ function App() {
       <GlobalStyle />
       <Router>
         <Menu options={MenuData} />
-
-        <Routes>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/registerUser' element={<RegisterUser />} />
-          <Route path='/registerContract' element={<RegisterContract />} />
-        </Routes>
+        <UserDataProvider>
+          <ContractsProvider>
+            <Validations.Provider value={validations}>
+                <Routes>
+                  <Route path='/' element={<Dashboard />} />
+                  <Route path='/contracts' element={<ContractView />} />
+                  <Route path='/register/contract' element={<RegisterContract />} />
+                  <Route path='/register/user' element={<RegisterUser />} />
+                </Routes>
+            </Validations.Provider>
+          </ContractsProvider>
+        </UserDataProvider>
+          
       </Router>
     </>
   );

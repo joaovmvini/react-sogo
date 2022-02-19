@@ -7,7 +7,6 @@ const StyledInput = styled.input`
     ` : ''}
 
     padding: 16.5px 14px;
-    font: inherit;
     border: 1px solid #EEE;
 `;
 

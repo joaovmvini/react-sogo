@@ -12,10 +12,15 @@ const StyledColumn = styled.div`
 
    padding-left: 8px;
    padding-right: 8px;
+
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+  
 `;
 
 export default function Column(props) {
     return (
-        <StyledColumn {...props} >{props.children}</StyledColumn>
+        <StyledColumn className='col' {...props} >{props.children}</StyledColumn>
     )
 }

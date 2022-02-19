@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
 import { IconContext } from 'react-icons/lib';
 
 const StyledWrapper = styled.div`
@@ -60,32 +58,15 @@ const StyledText = styled.span`
     margin-left: 16px;
 `;
 
-const Toggle = styled.li`
-    background-color: #060b26;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-`;
-
-const StyledLink = styled(Link)`
-    font-size: 2rem;
-    margin-left: 2rem;
-    background: none;
-`;
 
 export default function Menu({ options }) {
     const [sidebar, setSidebar] = useState(false);
-
-    const showSidebar = () => setSidebar(! sidebar)
 
     const renderList = () => {
         return options.map((item, key) => {
             return (
                 <StyledLi key={key}>
                     <Link to={item.path} className='nav-link'>
-                        {item.icon}
                         <StyledText>{item.title}</StyledText>
                     </Link>
                 </StyledLi>
@@ -95,24 +76,11 @@ export default function Menu({ options }) {
 
     return (
         <>
-            <IconContext.Provider value={{color: '#fff'}}>
-                {/* <StyledWrapper>
-                    <StyledLink to='#'>
-                        <FaIcons.FaBars onClick={showSidebar}/>
-                    </StyledLink>
-                </StyledWrapper> */}
-
-                <StyledNav sidebar={sidebar}>
-                    <StyledUl>
-                        {/* <Toggle>
-                            <StyledLink to='#'>
-                                <AiIcons.AiOutlineClose />
-                            </StyledLink>
-                        </Toggle> */}
-                        {renderList()}
-                    </StyledUl>
-                </StyledNav>
-            </IconContext.Provider>
+            <StyledNav sidebar={sidebar}>
+                <StyledUl>
+                    {renderList()}
+                </StyledUl>
+            </StyledNav>
         </>
     )
 }
