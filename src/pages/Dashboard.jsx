@@ -103,7 +103,9 @@ export default function Dashboard() {
     ];
 
     const renderStatistics = () => {
-        return data.map((item, key) => {
+        return ! (contracts.length) ? 
+            <div><span>Sem contratos cadastrados até o momento...</span></div>
+        : data.map((item, key) => {
             return (
                 <>
                     <Column flex={1} center>
